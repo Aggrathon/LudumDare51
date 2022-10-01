@@ -12,27 +12,30 @@ public class GameState : MonoBehaviour
     [SerializeField] float dayLength = 60f;
     float dayTime = 0f;
     int dayIndex = 0;
-    string[] dayNames = { "Night", "Morning", "Day", "Evening" };
+    readonly string[] dayNames = { "Night", "Morning", "Day", "Evening" };
 
     [Header("Power")]
     [SerializeField] AnimationCurve powerDemand;
     float powerOffset = 0f;
-    float powerIn;
-    float powerOut;
     bool powerWarn;
     float gasPrice = 1f;
     float carbonTax = 0f;
 
     [Header("Events")]
     [SerializeField] List<GameEvent> events;
+    HashSet<GameEvent> randomEvents;
     int eventIndex = -1;
+    float totRandom;
 
     [Header("Mood")]
-    [SerializeField] int moodSteps = 20;
-    int mood;
+    [SerializeField] float moodMax = 50;
+    float mood;
     int moodDelta;
-    float price;
-    string[] moodNames = { "<<<", "<<", "<", "", ">" };
+    readonly string[] moodNames = { "<<<", "<<", "<", "", ">" };
+
+    [Header("Power plants")]
+    [SerializeField] List<APowerPlant> powerPlantPrefabs;
+    List<APowerPlant> powerPlants;
 
     [Header("UI")]
     [SerializeField] Image eventClock;
@@ -46,12 +49,16 @@ public class GameState : MonoBehaviour
     [SerializeField] Image moodMeter;
     [SerializeField] TextMeshProUGUI moodTrend;
 
+    public GameEvent CurrentEvent { get; protected set; }
 
     public static GameState Instance { get; protected set; }
 
     private void Awake()
     {
         Instance = this;
+        powerPlants = new List<APowerPlant>();
+        randomEvents = new HashSet<GameEvent>();
+        totRandom = 0f;
     }
 
     private void OnDestroy()
@@ -60,10 +67,15 @@ public class GameState : MonoBehaviour
             Instance = null;
     }
 
+    public void AddPowerPlant(APowerPlant plant)
+    {
+        powerPlants.Add(plant);
+    }
+
 
     void Start()
     {
-        mood = moodSteps;
+        mood = moodMax;
         eventTimer = 0f;
         dayTime = 0f;
         dayIndex = -1;
@@ -73,6 +85,14 @@ public class GameState : MonoBehaviour
         gasPrice = 1f;
         carbonTax = 0f;
         CalculateStats();
+        foreach (var ev in events)
+        {
+            if (ev.probability > 0f && !randomEvents.Contains(ev))
+            {
+                randomEvents.Add(ev);
+                totRandom += ev.probability;
+            }
+        }
     }
 
     void Update()
@@ -87,34 +107,49 @@ public class GameState : MonoBehaviour
         {
             eventTimer -= eventInterval;
             NextEvent();
-            AdjustMood();
         }
+        mood += (float)moodDelta * Time.deltaTime;
         CalculateStats();
     }
 
     void CalculateStats()
     {
-        powerOut = Mathf.Min(powerDemand.Evaluate(dayTime / dayLength) + powerOffset, 1.0f); ;
+        float cost = 0.0f;
+        float powerIn = 0.0f;
+        foreach (var p in powerPlants)
+        {
+            cost += p.GetCost();
+            powerIn = p.GetPower();
+        }
+        priceMeter.fillAmount = cost;
+        float powerOut = Mathf.Min(powerDemand.Evaluate(dayTime / dayLength) + powerOffset, 1.0f); ;
         powerOutput.fillAmount = powerOut;
-        powerIn = powerOut; // TODO calculate power in
         powerInput.fillAmount = powerIn;
         powerWarn = powerIn < powerOut - 0.01f;
         if (powerWarn != powerWarning.activeSelf)
             powerWarning.SetActive(powerWarn);
-        price = 0.5f; // TODO calculate price
-        priceMeter.fillAmount = price;
-        int mood = 0;
+        int moodChange = 0;
         if (powerWarn)
-            mood -= 2;
-        if (price < 0.25f)
-            mood++;
-        else if (price > 0.6f)
-            mood--;
-        if (mood != moodDelta)
+            moodChange -= 2;
+        if (cost < 0.25f)
+            moodChange++;
+        else if (cost > 0.6f)
+            moodChange--;
+        if (moodChange != moodDelta)
         {
-            moodDelta = mood;
-            moodTrend.text = moodNames[mood + 3];
+            moodDelta = moodChange;
+            moodTrend.text = moodNames[moodChange + 3];
         }
+        if (mood <= 0)
+        {
+            //TODO game over
+            Debug.LogWarning("Game Over!");
+        }
+        else if (mood > moodMax)
+        {
+            mood = moodMax;
+        }
+        moodMeter.fillAmount = mood / moodMax;
         float dayFrac = dayTime / dayLength;
         dayClock.fillAmount = dayFrac;
         int dayId = Mathf.FloorToInt(dayFrac * (float)dayNames.Length);
@@ -131,28 +166,30 @@ public class GameState : MonoBehaviour
         eventIndex++;
         if (eventIndex < events.Count)
         {
-            eventDescription.text = events[eventIndex].description;
+            CurrentEvent = events[eventIndex];
+        }
+        else
+        {
+            if (randomEvents.Count == 0)
+                eventDescription.text = string.Format("Event {0}", eventIndex);
+            else
+            {
+                float rnd = Random.value * totRandom;
+                foreach (var item in randomEvents)
+                {
+                    if (rnd <= item.probability)
+                    {
+                        CurrentEvent = item;
+                        break;
+                    }
+                    rnd -= item.probability;
+                }
+            }
+        }
+        if (CurrentEvent != null)
+        {
+            eventDescription.text = CurrentEvent.description;
             // TODO EVent
-        }
-        else
-        {
-            // TODO select a random event
-            eventDescription.text = string.Format("Event {}", eventIndex);
-        }
-    }
-
-    void AdjustMood()
-    {
-        mood += moodDelta;
-        if (mood <= 0)
-        {
-            //TODO game over
-            Debug.LogWarning("Game Over!");
-            moodMeter.fillAmount = 0f;
-        }
-        else
-        {
-            moodMeter.fillAmount = (float)mood / (float)moodSteps;
         }
     }
 }

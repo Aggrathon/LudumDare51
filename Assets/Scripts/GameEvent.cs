@@ -4,12 +4,15 @@ using UnityEngine;
 public class GameEvent : ScriptableObject
 {
     public string description;
+    public float probability = 1f;
+
+    [Header("Effects")]
     [Range(-0.5f, 0.5f)]
     public float tempPowerDemand = 0f;
     [Range(-1f, 1f)]
     public float tempWind = 0f;
     [Range(-1f, 1f)]
-    public float tempRain = 0f;
+    public float rain = 0f;
     [Range(0f, 1f)]
     public float tempHeat = 0f;
     [Range(0f, 1f)]
