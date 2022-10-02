@@ -38,9 +38,13 @@ public class GameState : MonoBehaviour
     int moodDelta;
     readonly string[] moodNames = { "<<<", "<<", "<", "", ">" };
 
+    [Header("Sounds")]
+    [SerializeField] AudioClipCollection eventSounds;
+
     [Header("Integrations")]
     [SerializeField] Messages messages;
     [SerializeField] BuildingUI buildUI;
+    [SerializeField] AudioManager audioManager;
 
     [Header("UI")]
     [SerializeField] Image eventClock;
@@ -214,6 +218,7 @@ public class GameState : MonoBehaviour
                     buildUI.gameObject.SetActive(true);
                     break;
             }
+            audioManager.PlayOneShot(eventSounds);
         }
     }
 }
