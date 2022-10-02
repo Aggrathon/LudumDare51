@@ -2,25 +2,27 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class SolarPowerPlant : APowerPlant
+public class WindPowerPlant : APowerPlant
 {
-    [SerializeField] float energyMax = 0.2f;
+    [SerializeField] float energyMax = 0.3f;
+    [SerializeField] float perlinScale = 0.1f;
     GameState state;
 
     [Header("UI")]
     [SerializeField] Image powerMeter;
     [SerializeField] Image costMeter;
 
-    float Sun
+    float Wind
     {
         get
         {
-            float sun = Mathf.Max(Mathf.Cos(state.DayFrac * Mathf.PI * 2f - Mathf.PI) + 0.25f, 0f);
+            float wind = Mathf.PerlinNoise1D(Time.time * perlinScale) * 0.9f;
+            wind += Mathf.PerlinNoise1D(Time.time * perlinScale * 3f) * 0.1f;
             if (state.CurrentEvent != null)
             {
-                sun *= 1 - 0.5f * state.CurrentEvent.rain;
+                wind = Mathf.Max(wind + state.CurrentEvent.wind, 0f);
             }
-            return sun;
+            return wind;
         }
     }
 
@@ -38,7 +40,7 @@ public class SolarPowerPlant : APowerPlant
 
     public override float GetPower()
     {
-        return Sun * energyMax;
+        return Wind * energyMax;
     }
 
     public override float GetCost()

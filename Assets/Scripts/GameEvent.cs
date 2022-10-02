@@ -21,4 +21,6 @@ public class GameEvent : ScriptableObject
     public float carbonTax = 0.0f;
     [Range(-0.25f, 0.5f)]
     public float gasPrice = 0f;
+    [Range(0f, 1f)]
+    public float powerIncrese = 0.0f;
 }

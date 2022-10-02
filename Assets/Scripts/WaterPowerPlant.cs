@@ -33,11 +33,13 @@ public class WaterPowerPlant : APowerPlant
     {
         waterContent = waterCapacity;
         valve.value = rainRefillRate;
+        valve.minValue = 0f;
+        valve.maxValue = maxPower;
         filling = true;
         waterDelta.text = ">";
         state = GameState.Instance;
         state.AddPowerPlant(this);
-        costMeter.fillAmount = 0f;
+        costMeter.fillAmount = GetCost() / maxCost;
     }
 
     void Update()
@@ -58,7 +60,7 @@ public class WaterPowerPlant : APowerPlant
             waterDelta.text = filling ? ">" : "<";
         }
         waterMeter.fillAmount = waterContent / waterCapacity;
-        powerMeter.fillAmount = GetPower();
+        powerMeter.fillAmount = GetPower() / maxPower;
     }
 
     public override float GetPower()
@@ -68,6 +70,6 @@ public class WaterPowerPlant : APowerPlant
 
     public override float GetCost()
     {
-        return 0f;
+        return 0.05f;
     }
 }

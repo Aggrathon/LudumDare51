@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &4731182892063005954
+--- !u!1001 &2075218181721020708
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -94,39 +94,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3265463701954919886, guid: 005f82add7597d44ea17b6239a3a5bd9, type: 3}
       propertyPath: m_text
-      value: Water power plant
+      value: Coal power plant
       objectReference: {fileID: 0}
     - target: {fileID: 6130357135001802836, guid: 005f82add7597d44ea17b6239a3a5bd9, type: 3}
       propertyPath: m_Name
-      value: Water Power Plant
+      value: Coal Power Plant
       objectReference: {fileID: 0}
     - target: {fileID: 8061512272607484463, guid: 005f82add7597d44ea17b6239a3a5bd9, type: 3}
       propertyPath: m_text
-      value: Flow
+      value: Fuel
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6584360654162672169, guid: 005f82add7597d44ea17b6239a3a5bd9, type: 3}
+    - {fileID: 6154433861355324130, guid: 005f82add7597d44ea17b6239a3a5bd9, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6130357135001802836, guid: 005f82add7597d44ea17b6239a3a5bd9, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2752368955573078902}
+      addedObject: {fileID: 4062936121025419226}
   m_SourcePrefab: {fileID: 100100000, guid: 005f82add7597d44ea17b6239a3a5bd9, type: 3}
---- !u!114 &437060164607351679 stripped
+--- !u!114 &4076198106081746574 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5167940089652119165, guid: 005f82add7597d44ea17b6239a3a5bd9, type: 3}
-  m_PrefabInstance: {fileID: 4731182892063005954}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &654244910602771924 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5241294421089566934, guid: 005f82add7597d44ea17b6239a3a5bd9, type: 3}
-  m_PrefabInstance: {fileID: 4731182892063005954}
+  m_CorrespondingSourceObject: {fileID: 2620311462110201770, guid: 005f82add7597d44ea17b6239a3a5bd9, type: 3}
+  m_PrefabInstance: {fileID: 2075218181721020708}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -134,46 +125,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1494050018993259862 stripped
+--- !u!1 &5323185101272088944 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6130357135001802836, guid: 005f82add7597d44ea17b6239a3a5bd9, type: 3}
-  m_PrefabInstance: {fileID: 4731182892063005954}
+  m_PrefabInstance: {fileID: 2075218181721020708}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2752368955573078902
+--- !u!114 &4062936121025419226
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1494050018993259862}
+  m_GameObject: {fileID: 5323185101272088944}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e360963ddcdbab44db6e7bd4c33446bc, type: 3}
+  m_Script: {fileID: 11500000, guid: 0df76fdf13df511458b99a17874104bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterCapacity: 50
-  energyPerWater: 1
-  rainRefillRate: 0.2
-  valve: {fileID: 437060164607351679}
-  waterMeter: {fileID: 7356838881818664174}
-  waterDelta: {fileID: 4681058236560296781}
-  powerMeter: {fileID: 7346987971379501736}
-  costMeter: {fileID: 654244910602771924}
---- !u!114 &4681058236560296781 stripped
+  baseCost: 0.3
+  valve: {fileID: 6590052483880378201}
+  powerMeter: {fileID: 4076198106081746574}
+  costMeter: {fileID: 6084493325835835890}
+--- !u!114 &6084493325835835890 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 98793783504000591, guid: 005f82add7597d44ea17b6239a3a5bd9, type: 3}
-  m_PrefabInstance: {fileID: 4731182892063005954}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7346987971379501736 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2620311462110201770, guid: 005f82add7597d44ea17b6239a3a5bd9, type: 3}
-  m_PrefabInstance: {fileID: 4731182892063005954}
+  m_CorrespondingSourceObject: {fileID: 5241294421089566934, guid: 005f82add7597d44ea17b6239a3a5bd9, type: 3}
+  m_PrefabInstance: {fileID: 2075218181721020708}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -181,14 +157,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7356838881818664174 stripped
+--- !u!114 &6590052483880378201 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2859843187567444460, guid: 005f82add7597d44ea17b6239a3a5bd9, type: 3}
-  m_PrefabInstance: {fileID: 4731182892063005954}
+  m_CorrespondingSourceObject: {fileID: 5167940089652119165, guid: 005f82add7597d44ea17b6239a3a5bd9, type: 3}
+  m_PrefabInstance: {fileID: 2075218181721020708}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

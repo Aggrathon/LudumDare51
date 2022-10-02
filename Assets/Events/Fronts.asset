@@ -10,15 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f4c8dc776d423b43a2accb9b9e579e4, type: 3}
-  m_Name: Heat Wave
+  m_Name: Fronts
   m_EditorClassIdentifier: 
-  description: 'Heat wave!
+  description: 'No news from the western front.
 
-    Prepare for new temperature records and no rain.'
+    ...and the eastern front results
+    in normal weather as well.'
   probability: 1
   powerDemand: 0
   wind: 0
-  rain: -1
-  heat: 0.755
+  rain: 0
+  heat: 0
   carbonTax: 0
   gasPrice: 0
+  powerIncrese: 0

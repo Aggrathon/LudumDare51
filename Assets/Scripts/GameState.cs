@@ -18,8 +18,9 @@ public class GameState : MonoBehaviour
     [SerializeField] AnimationCurve powerDemand;
     float powerOffset = 0f;
     bool powerWarn;
-    float gasPrice = 1f;
-    float carbonTax = 0f;
+    public float GasPrice { get; protected set; }
+    public float CarbonTax { get; protected set; }
+    float maxPower = 1f;
 
     [Header("Events")]
     [SerializeField] List<GameEvent> events;
@@ -77,6 +78,7 @@ public class GameState : MonoBehaviour
 
     void Start()
     {
+        maxPower = 1f;
         mood = moodMax;
         eventTimer = 0f;
         dayTime = 0f;
@@ -84,8 +86,8 @@ public class GameState : MonoBehaviour
         eventIndex = -1;
         eventDescription.text = "";
         powerOffset = 0f;
-        gasPrice = 1f;
-        carbonTax = 0f;
+        GasPrice = 0f;
+        CarbonTax = 0f;
         CalculateStats();
         foreach (var ev in events)
         {
@@ -124,11 +126,12 @@ public class GameState : MonoBehaviour
             powerIn += p.GetPower();
         }
         priceMeter.fillAmount = cost;
-        float powerOut = Mathf.Min(powerDemand.Evaluate(dayTime / dayLength) + powerOffset, 1.0f);
+        float powerOut = powerDemand.Evaluate(dayTime / dayLength) + powerOffset;
+        powerOut = Mathf.Clamp01(powerOut) * maxPower;
         if (CurrentEvent != null)
             powerOut += CurrentEvent.powerDemand;
-        powerOutput.fillAmount = powerOut;
-        powerInput.fillAmount = powerIn;
+        powerOutput.fillAmount = powerOut / maxPower;
+        powerInput.fillAmount = powerIn / maxPower;
         powerWarn = powerIn < powerOut - 0.01f;
         if (powerWarn != powerWarning.activeSelf)
             powerWarning.SetActive(powerWarn);
@@ -193,7 +196,9 @@ public class GameState : MonoBehaviour
         if (CurrentEvent != null)
         {
             eventDescription.text = CurrentEvent.description;
-            // TODO EVent
+            CarbonTax += CurrentEvent.carbonTax;
+            GasPrice = Mathf.Max(0f, GasPrice + CurrentEvent.gasPrice);
+            maxPower += CurrentEvent.powerIncrese;
         }
     }
 }
