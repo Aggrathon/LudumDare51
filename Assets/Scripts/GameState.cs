@@ -53,6 +53,8 @@ public class GameState : MonoBehaviour
 
     public static GameState Instance { get; protected set; }
 
+    public float DayFrac { get { return dayTime / dayLength; } }
+
     private void Awake()
     {
         Instance = this;
@@ -119,10 +121,12 @@ public class GameState : MonoBehaviour
         foreach (var p in powerPlants)
         {
             cost += p.GetCost();
-            powerIn = p.GetPower();
+            powerIn += p.GetPower();
         }
         priceMeter.fillAmount = cost;
-        float powerOut = Mathf.Min(powerDemand.Evaluate(dayTime / dayLength) + powerOffset, 1.0f); ;
+        float powerOut = Mathf.Min(powerDemand.Evaluate(dayTime / dayLength) + powerOffset, 1.0f);
+        if (CurrentEvent != null)
+            powerOut += CurrentEvent.powerDemand;
         powerOutput.fillAmount = powerOut;
         powerInput.fillAmount = powerIn;
         powerWarn = powerIn < powerOut - 0.01f;

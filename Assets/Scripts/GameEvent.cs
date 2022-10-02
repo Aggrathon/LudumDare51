@@ -3,20 +3,22 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Event", menuName = "Event", order = 0)]
 public class GameEvent : ScriptableObject
 {
+    [Multiline]
     public string description;
+    [Range(0f, 4f)]
     public float probability = 1f;
 
     [Header("Effects")]
     [Range(-0.5f, 0.5f)]
-    public float tempPowerDemand = 0f;
+    public float powerDemand = 0f;
     [Range(-1f, 1f)]
-    public float tempWind = 0f;
+    public float wind = 0f;
     [Range(-1f, 1f)]
     public float rain = 0f;
     [Range(0f, 1f)]
-    public float tempHeat = 0f;
+    public float heat = 0f;
     [Range(0f, 1f)]
-    public float deltaCarbonTax = 0.0f;
+    public float carbonTax = 0.0f;
     [Range(-0.25f, 0.5f)]
-    public float deltaGasPrice = 0f;
+    public float gasPrice = 0f;
 }

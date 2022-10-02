@@ -24,7 +24,7 @@ public class WaterPowerPlant : APowerPlant
         {
             float rain = 1f;
             if (state.CurrentEvent != null)
-                rainRefillRate += state.CurrentEvent.rain;
+                rain = Mathf.Max(0.2f, rain + state.CurrentEvent.rain);
             return rainRefillRate * rain;
         }
     }
@@ -47,6 +47,10 @@ public class WaterPowerPlant : APowerPlant
         if (waterContent < 0f)
         {
             waterContent = 0f;
+        }
+        else if (waterContent > waterCapacity)
+        {
+            waterContent = waterCapacity;
         }
         if ((valve.value > refill) == filling)
         {
