@@ -23,4 +23,13 @@ public class GameEvent : ScriptableObject
     public float gasPrice = 0f;
     [Range(0f, 1f)]
     public float powerIncrese = 0.0f;
+
+    public Action action = Action.None;
+
+    public enum Action
+    {
+        None,
+        Tutorial,
+        Victory
+    }
 }

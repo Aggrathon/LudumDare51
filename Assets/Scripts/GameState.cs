@@ -22,6 +22,10 @@ public class GameState : MonoBehaviour
     public float CarbonTax { get; protected set; }
     float maxPower = 1f;
 
+    // [Header("Power plants")]
+    // [SerializeField] List<APowerPlant> powerPlantPrefabs;
+    List<APowerPlant> powerPlants;
+
     [Header("Events")]
     [SerializeField] List<GameEvent> events;
     HashSet<GameEvent> randomEvents;
@@ -34,9 +38,8 @@ public class GameState : MonoBehaviour
     int moodDelta;
     readonly string[] moodNames = { "<<<", "<<", "<", "", ">" };
 
-    [Header("Power plants")]
-    [SerializeField] List<APowerPlant> powerPlantPrefabs;
-    List<APowerPlant> powerPlants;
+    [Header("Integrations")]
+    [SerializeField] Messages messages;
 
     [Header("UI")]
     [SerializeField] Image eventClock;
@@ -80,7 +83,7 @@ public class GameState : MonoBehaviour
     {
         maxPower = 1f;
         mood = moodMax;
-        eventTimer = 0f;
+        eventTimer = eventInterval - 1f;
         dayTime = 0f;
         dayIndex = -1;
         eventIndex = -1;
@@ -149,8 +152,7 @@ public class GameState : MonoBehaviour
         }
         if (mood <= 0)
         {
-            //TODO game over
-            Debug.LogWarning("Game Over!");
+            messages.ShowDefeat();
         }
         else if (mood > moodMax)
         {
@@ -199,6 +201,15 @@ public class GameState : MonoBehaviour
             CarbonTax += CurrentEvent.carbonTax;
             GasPrice = Mathf.Max(0f, GasPrice + CurrentEvent.gasPrice);
             maxPower += CurrentEvent.powerIncrese;
+            switch (CurrentEvent.action)
+            {
+                case GameEvent.Action.Tutorial:
+                    messages.ShowNextTutorial();
+                    break;
+                case GameEvent.Action.Victory:
+                    messages.ShowVictory();
+                    break;
+            }
         }
     }
 }
