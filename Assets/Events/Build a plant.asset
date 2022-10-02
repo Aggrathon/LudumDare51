@@ -10,17 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f4c8dc776d423b43a2accb9b9e579e4, type: 3}
-  m_Name: Gas prices increse
+  m_Name: Build a plant
   m_EditorClassIdentifier: 
-  description: 'Gas prices increase.
+  description: 'You are running out of power!
 
-'
-  probability: 1
+    Funds have been allocated for
+    building an additional power plant'
+  probability: 0.5
   powerDemand: 0
   wind: 0
   rain: 0
   heat: 0
   carbonTax: 0
-  gasPrice: 0.2
+  gasPrice: 0
   powerIncrese: 0
-  action: 0
+  action: 3

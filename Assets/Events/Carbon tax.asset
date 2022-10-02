@@ -16,10 +16,12 @@ MonoBehaviour:
 
     The market solution to reduce the use
     of fossil fuels.'
-  probability: 0.5
+  probability: 1
   powerDemand: 0
   wind: 0
   rain: 0
   heat: 0
-  carbonTax: 0.2
+  carbonTax: 0.15
   gasPrice: 0
+  powerIncrese: 0
+  action: 0

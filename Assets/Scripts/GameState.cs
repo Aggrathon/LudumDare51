@@ -40,6 +40,7 @@ public class GameState : MonoBehaviour
 
     [Header("Integrations")]
     [SerializeField] Messages messages;
+    [SerializeField] BuildingUI buildUI;
 
     [Header("UI")]
     [SerializeField] Image eventClock;
@@ -208,6 +209,9 @@ public class GameState : MonoBehaviour
                     break;
                 case GameEvent.Action.Victory:
                     messages.ShowVictory();
+                    break;
+                case GameEvent.Action.Build:
+                    buildUI.gameObject.SetActive(true);
                     break;
             }
         }

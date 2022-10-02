@@ -30,6 +30,7 @@ public class GameEvent : ScriptableObject
     {
         None,
         Tutorial,
-        Victory
+        Victory,
+        Build
     }
 }
