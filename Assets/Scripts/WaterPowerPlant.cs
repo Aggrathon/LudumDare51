@@ -14,6 +14,8 @@ public class WaterPowerPlant : APowerPlant
     [SerializeField] Slider valve;
     [SerializeField] Image waterMeter;
     [SerializeField] TextMeshProUGUI waterDelta;
+    [SerializeField] Image powerMeter;
+    [SerializeField] Image costMeter;
     bool filling;
 
     float RefillRate
@@ -35,6 +37,7 @@ public class WaterPowerPlant : APowerPlant
         waterDelta.text = ">";
         state = GameState.Instance;
         state.AddPowerPlant(this);
+        costMeter.fillAmount = 0f;
     }
 
     void Update()
@@ -50,6 +53,8 @@ public class WaterPowerPlant : APowerPlant
             filling = !filling;
             waterDelta.text = filling ? ">" : "<";
         }
+        waterMeter.fillAmount = waterContent / waterCapacity;
+        powerMeter.fillAmount = GetPower();
     }
 
     public override float GetPower()
