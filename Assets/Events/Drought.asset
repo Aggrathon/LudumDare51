@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f4c8dc776d423b43a2accb9b9e579e4, type: 3}
   m_Name: Drought
   m_EditorClassIdentifier: 
-  description: 'A severe drough ts incoming.
+  description: 'A severe drough is incoming.
 
     No rain causes problems for agriculture
     and power generation.'
@@ -23,3 +23,5 @@ MonoBehaviour:
   heat: 0
   carbonTax: 0
   gasPrice: 0
+  powerIncrese: 0
+  action: 0

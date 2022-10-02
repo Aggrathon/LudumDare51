@@ -92,6 +92,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 606180067424863946, guid: 005f82add7597d44ea17b6239a3a5bd9, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 41551330, guid: 941ca4399ba93494fa634cbc24a71d6d, type: 3}
+    - target: {fileID: 606180067424863946, guid: 005f82add7597d44ea17b6239a3a5bd9, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3265463701954919886, guid: 005f82add7597d44ea17b6239a3a5bd9, type: 3}
       propertyPath: m_text
       value: Gas power plant

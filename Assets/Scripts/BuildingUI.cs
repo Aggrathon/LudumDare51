@@ -8,6 +8,8 @@ public class BuildingUI : MonoBehaviour
 {
     [SerializeField] Transform buildings;
     [SerializeField] Transform buttons;
+    [SerializeField] AudioManager audioManager;
+    [SerializeField] AudioClip clip;
 
     private void OnEnable()
     {
@@ -31,6 +33,7 @@ public class BuildingUI : MonoBehaviour
             {
                 gameObject.SetActive(false);
                 plant.gameObject.SetActive(true);
+                audioManager.PlayOneShot(clip);
             });
         }
     }

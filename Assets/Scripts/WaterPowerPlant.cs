@@ -32,7 +32,7 @@ public class WaterPowerPlant : APowerPlant
     void Start()
     {
         waterContent = waterCapacity;
-        valve.value = rainRefillRate;
+        valve.value = rainRefillRate * 1.5f;
         valve.minValue = 0f;
         valve.maxValue = maxPower;
         filling = true;

@@ -39,7 +39,7 @@ public class GameState : MonoBehaviour
     readonly string[] moodNames = { "<<<", "<<", "<", "", ">" };
 
     [Header("Sounds")]
-    [SerializeField] AudioClipCollection eventSounds;
+    [SerializeField] AudioClip eventSound;
 
     [Header("Integrations")]
     [SerializeField] Messages messages;
@@ -218,7 +218,7 @@ public class GameState : MonoBehaviour
                     buildUI.gameObject.SetActive(true);
                     break;
             }
-            audioManager.PlayOneShot(eventSounds);
+            audioManager.PlayOneShot(eventSound, false);
         }
     }
 }
